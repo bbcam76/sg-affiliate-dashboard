@@ -1,165 +1,140 @@
-# 🚀 SG Affiliate Leads
+#  SG Affiliate Leads
 
-> Discover • Compare • Profit
+<div align="center">
 
-SG Affiliate Leads is an AI-powered affiliate marketing intelligence platform designed to help marketers, creators, agencies, entrepreneurs, and businesses discover the highest-paying affiliate programs across thousands of verified networks.
+# SG Affiliate Leads
 
-Instead of spending hours searching different affiliate networks, SG Affiliate Leads centralizes opportunities into one searchable marketplace where users can discover, compare, save, and eventually launch affiliate campaigns with just a few clicks.
+### Discover • Compare • Profit
+
+**AI-Powered Affiliate Program Discovery Platform**
+
+Search, compare, and discover the highest-paying affiliate programs from thousands of verified listings.
+
+🌐 **Website:** https://www.shapgenius.com
+
+</div>
 
 ---
 
-# 🌐 Website
+## 📖 About
 
-https://www.shapgenius.com
+SG Affiliate Leads is a modern affiliate intelligence platform built to help affiliate marketers, content creators, entrepreneurs, agencies, and businesses discover profitable affiliate opportunities in one centralized marketplace.
 
----
+Instead of searching hundreds of affiliate networks manually, SG Affiliate Leads simplifies the process by allowing users to discover, compare, and eventually launch affiliate campaigns through an intuitive dashboard.
 
-# 🎯 Vision
-
-Affiliate marketing is fragmented.
-
-Thousands of affiliate programs exist across hundreds of networks.
-
-Finding the best opportunities takes time.
-
-SG Affiliate Leads solves this problem by becoming the world's largest affiliate opportunity discovery platform.
-
-Our mission is simple:
-
-> Help businesses and creators make more money through smarter affiliate discovery.
+This project is part of the growing **ShapeGenius Ecosystem**, whose mission is to help businesses make more money through AI-powered solutions.
 
 ---
 
 # ✨ Features
 
-Current Version
+### Current Features
 
-- Search Affiliate Programs
-- Modern Responsive Dashboard
-- Statistics Overview
-- Program Discovery
-- Saved Leads
-- Mobile Friendly
-- Fast Loading
-- Dark Professional UI
-
-Upcoming Features
-
-- AI Affiliate Recommendations
-- Smart Filters
-- Commission Comparison
-- Cookie Duration Comparison
-- Payout History
-- Country Filters
-- Network Filters
-- AI Opportunity Score
-- Favorites
-- Campaign Builder
-- Affiliate Designer Integration
-- One-click Export
-- Lead Tracking
+- 🔍 Affiliate Program Discovery
+- 📊 Statistics Dashboard
+- ❤️ Saved Leads
+- 📱 Fully Responsive Design
+- 🌙 Modern Dark UI
+- ⚡ Fast Loading
+- 💻 Desktop & Mobile Optimized
 
 ---
 
-# 🖥️ Built With
+## 🚀 Planned Features
+
+- AI Affiliate Recommendations
+- Advanced Search Filters
+- Commission Comparison
+- Cookie Duration Comparison
+- Affiliate Network Ratings
+- Country Filters
+- Favorites
+- Campaign Builder
+- AI Opportunity Score
+- Affiliate Designer Integration
+- CSV Export
+- User Accounts
+- Stripe Subscription System
+
+---
+
+# 🛠 Tech Stack
 
 - HTML5
 - CSS3
 - JavaScript
 - Tailwind CSS
-- Responsive Design
-- Modern UI Components
 
-Future
+### Future Stack
 
 - React
 - Next.js
 - Supabase
-- OpenAI
+- OpenAI API
 - Stripe
 - Vercel
 
 ---
 
-# 📱 Mobile Friendly
+# 📂 Project Structure
 
-SG Affiliate Leads is fully responsive and optimized for
+```
+SG-Affiliate-Leads/
 
-- Desktop
-- Tablet
-- Mobile
-- Large Screens
-
----
-
-# 📊 Platform Goals
-
-- Discover 100,000+ affiliate programs
-- Compare every major affiliate network
-- AI-powered recommendations
-- One-click campaign creation
-- Affiliate opportunity intelligence
+├── index.html
+├── assets/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│
+├── README.md
+└── LICENSE
+```
 
 ---
 
-# 🚀 Repository Setup
+# 🚀 Installation
 
-## 1. Clone Repository
+Clone the repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/sg-affiliate-leads.git
 ```
 
----
-
-## 2. Open Project
+Go into the project
 
 ```bash
 cd sg-affiliate-leads
 ```
 
----
-
-## 3. Run
-
-Simply open
+Open
 
 ```
 index.html
 ```
 
-or use VS Code Live Server.
+Or launch using **VS Code Live Server**.
 
 ---
 
-# 🌍 Deploy
+# 🌐 Deployment
 
-Recommended deployment platforms
+## Vercel
 
-- Vercel ⭐
-- Netlify
-- GitHub Pages
-- Cloudflare Pages
-
----
-
-# Deploy to Vercel
-
-1. Push repository to GitHub
-
-2. Login to
-
-https://vercel.com
-
+1. Push project to GitHub
+2. Login to Vercel
 3. Import Repository
-
-4. Click Deploy
+4. Click **Deploy**
 
 Done.
 
 ---
 
-# Deploy to GitHub Pages
+## GitHub Pages
+
+Repository
+
+↓
 
 Settings
 
@@ -169,11 +144,11 @@ Pages
 
 ↓
 
-Deploy from Branch
+Deploy From Branch
 
 ↓
 
-Main
+Main Branch
 
 ↓
 
@@ -183,32 +158,25 @@ Root
 
 Save
 
-Your website will automatically publish.
+---
+
+# 🎯 Vision
+
+Our goal is to become the world's largest affiliate opportunity discovery platform.
+
+Future objectives include:
+
+- 100,000+ affiliate programs
+- AI-powered recommendations
+- Business Intelligence
+- Affiliate Campaign Builder
+- Global Affiliate Marketplace
 
 ---
 
-# 📁 Project Structure
+# 🌍 ShapeGenius Ecosystem
 
-```
-SG-Affiliate-Leads/
-
-│
-├── index.html
-├── assets/
-│     ├── css/
-│     ├── js/
-│     ├── images/
-│
-├── README.md
-│
-└── LICENSE
-```
-
----
-
-# 🔥 SG Ecosystem
-
-SG Affiliate Leads is part of the growing ShapeGenius ecosystem.
+SG Affiliate Leads is one module inside the ShapeGenius ecosystem.
 
 Current Projects
 
@@ -219,86 +187,90 @@ Current Projects
 - SG Last Minute
 - SG Job Finder
 
-Future
+Future Projects
 
 - SG Marketplace
 - SG CRM
 - SG AI Assistant
-- SG Business Intelligence
+- BFI (Biz Future Intel)
 
 ---
 
-# 💡 Why SG Affiliate Leads?
+# 🛣 Roadmap
 
-Unlike traditional affiliate directories, SG Affiliate Leads is being built as an intelligent affiliate discovery engine.
+## Version 1.0
 
-Instead of simply listing programs, the platform aims to help users identify the most profitable opportunities using AI, data analysis, and performance insights.
-
----
-
-# 🛣️ Roadmap
-
-### Version 1.0
-
-- Dashboard
-- Search
+- Responsive Dashboard
+- Affiliate Search
 - Statistics
-- Responsive Design
+- Mobile Optimization
 
-### Version 2.0
+---
+
+## Version 2.0
 
 - User Accounts
 - Saved Programs
-- Filters
 - Categories
+- Search Filters
 
-### Version 3.0
+---
+
+## Version 3.0
 
 - AI Recommendations
-- Campaign Builder
 - Affiliate Designer Integration
+- Campaign Builder
 
-### Version 4.0
+---
+
+## Version 4.0
 
 - Marketplace
-- API
 - Analytics
+- API
 - Business Dashboard
 
 ---
 
 # 🤝 Contributing
 
-Contributions, feature requests, and suggestions are welcome.
+Contributions are welcome.
 
-Please open an Issue or submit a Pull Request.
+If you'd like to improve SG Affiliate Leads, feel free to fork the repository, submit pull requests, or open issues.
 
 ---
 
 # 📄 License
 
-MIT License
+This project is licensed under the **MIT License**.
 
 ---
 
 # 👨‍💻 Developed By
 
-Robert Tatowina
+**Robert Tatowina**
 
-Founder of ShapeGenius
+Founder of **ShapeGenius**
 
-https://www.shapgenius.com
+🌐 https://www.shapgenius.com
 
 ---
 
-# ⭐ Support
+<div align="center">
 
-If you like this project, please consider giving it a ⭐ on GitHub.
+## ⭐ Support the Project
+
+If you like SG Affiliate Leads, please consider giving this repository a ⭐ on GitHub.
 
 Every star helps the project grow.
 
 ---
 
-# 🚀 ShapeGenius
+### ShapeGenius
 
-Helping Businesses Make More Money Through AI.
+**Helping Businesses Make More Money Through AI**
+
+https://www.shapgenius.com
+
+</div>
