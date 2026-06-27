@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Affiliate List Leads — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ── LIGHT THEME ── */
+:root,[data-theme="light"]{
+  --brand:#185FA5;--brand-dark:#0C447C;--brand2:#534AB7;--accent:#1D9E75;
+  --bg:#ffffff;--bg2:#F7F9FB;--bg3:#EFF2F5;
+  --text:#0D1117;--muted:#5A6478;--hint:#8B95A7;
+  --border:#E2E8F0;--border-md:#CBD5E1;
+  --card-bg:#ffffff;--nav-bg:#ffffff;--sidebar-bg:#ffffff;
+  --input-bg:#ffffff;--modal-bg:#ffffff;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,.08);
+  --active-bg:#EBF4FF;
+  --hero-badge-bg:#EFF6FF;--hero-badge-color:#1E40AF;--hero-badge-border:#BFDBFE;
+  --green-bg:#F0FDF4;--green-border:#BBF7D0;--green-text:#14532D;--green-strong:#166534;
+  --saved-bg:#FEF2F2;--saved-border:#FECACA;--saved-color:#991B1B;
+  --fav-badge-bg:#FEE2E2;--fav-badge-color:#991B1B;
+  --overlay:rgba(0,0,0,.45);
+}
+
+/* ── DARK THEME ── */
+[data-theme="dark"]{
+  --brand:#4A9EE8;--brand-dark:#6BB5F0;--brand2:#7B6FD4;--accent:#34C98A;
+  --bg:#0F1117;--bg2:#161B27;--bg3:#1C2333;
+  --text:#E8EDF5;--muted:#8B95A7;--hint:#5A6478;
+  --border:#252D3D;--border-md:#2E3A50;
+  --card-bg:#161B27;--nav-bg:#0F1117;--sidebar-bg:#0F1117;
+  --input-bg:#161B27;--modal-bg:#161B27;
+  --shadow:0 1px 3px rgba(0,0,0,.3),0 1px 2px rgba(0,0,0,.2);
+  --shadow-md:0 4px 20px rgba(0,0,0,.4);
+  --active-bg:#1A2845;
+  --hero-badge-bg:#1A2845;--hero-badge-color:#93C5FD;--hero-badge-border:#1E3A6E;
+  --green-bg:#0F2818;--green-border:#1A4D2E;--green-text:#86EFAC;--green-strong:#4ADE80;
+  --saved-bg:#2D1515;--saved-border:#5C2626;--saved-color:#FCA5A5;
+  --fav-badge-bg:#3D1515;--fav-badge-color:#FCA5A5;
+  --overlay:rgba(0,0,0,.65);
+}
+
+body{font-family:'Inter',sans-serif;background:var(--bg3);color:var(--text);font-size:14px;line-height:1.5;min-height:100vh;transition:background .2s,color .2s}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+button{cursor:pointer;font-family:inherit;font-size:13px}
+
+.app-shell{display:flex;flex-direction:column;min-height:100vh}
+
+/* ── TOPNAV ── */
+.topnav{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:var(--nav-bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;gap:16px;transition:background .2s,border-color .2s}
+.nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0}
+.brand-logo{width:36px;height:36px;border-radius:8px;background:var(--brand2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:14px}
+.brand-text .name{font-size:15px;font-weight:600;color:var(--text);line-height:1.1}
+.brand-text .tagline{font-size:10px;color:var(--brand);font-weight:500;letter-spacing:.03em}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{padding:6px 12px;border-radius:8px;font-size:13px;color:var(--muted);border:none;background:transparent;transition:all .15s;font-weight:500}
+.nav-link:hover{background:var(--bg2);color:var(--text)}
+.nav-link.active{color:var(--brand);background:var(--active-bg)}
+.nav-ctas{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;border:1px solid var(--border-md);background:var(--card-bg);color:var(--text);transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.btn:hover{background:var(--bg2)}
+.btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.btn.primary:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.btn.outline{border-color:var(--brand);color:var(--brand)}
+.btn.outline:hover{background:var(--active-bg)}
+.fav-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--fav-badge-bg);color:var(--fav-badge-color);font-size:10px;font-weight:600}
+
+/* Theme toggle */
+.theme-toggle{width:34px;height:34px;border-radius:8px;border:1px solid var(--border-md);background:var(--bg2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;flex-shrink:0}
+.theme-toggle:hover{background:var(--bg3)}
+.theme-toggle i{font-size:16px}
+
+/* ── INNER LAYOUT ── */
+.inner{display:flex;flex:1}
+.sidebar{width:220px;flex-shrink:0;background:var(--sidebar-bg);border-right:1px solid var(--border);padding:20px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;transition:background .2s,border-color .2s}
+.sidebar-section{margin-bottom:8px}
+.sidebar-label{font-size:10px;color:var(--hint);padding:0 16px 6px;text-transform:uppercase;letter-spacing:.07em;font-weight:600}
+.sidebar-item{display:flex;align-items:center;gap:8px;padding:8px 16px;font-size:13px;color:var(--muted);border:none;background:transparent;width:100%;text-align:left;border-left:2px solid transparent;transition:all .12s;font-weight:500}
+.sidebar-item:hover{background:var(--bg2);color:var(--text)}
+.sidebar-item.active{border-left-color:var(--brand);color:var(--brand);background:var(--active-bg)}
+.sidebar-item i{font-size:16px}
+.main{flex:1;min-width:0}
+
+/* ── PAGES ── */
+.page{display:none}
+.page.active{display:block}
+
+/* ── HERO ── */
+.hero{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:center;padding:40px 32px;background:var(--card-bg);border-bottom:1px solid var(--border);transition:background .2s,border-color .2s}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--hero-badge-color);background:var(--hero-badge-bg);border:1px solid var(--hero-badge-border);padding:4px 10px;border-radius:999px;margin-bottom:16px}
+.hero h1{font-size:36px;font-weight:600;color:var(--text);line-height:1.15;margin-bottom:12px}
+.hero h1 span{color:var(--brand)}
+.hero p{font-size:15px;color:var(--muted);line-height:1.7;max-width:480px;margin-bottom:20px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.btn-lg{padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;border:1px solid var(--border-md);background:var(--card-bg);color:var(--text);transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-lg:hover{background:var(--bg2)}
+.btn-lg.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.btn-lg.primary:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.trust-row{display:flex;gap:20px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.trust-item i{font-size:14px;color:var(--accent)}
+.hero-visual{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;transition:background .2s,border-color .2s}
+.mini-stat{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;transition:background .2s}
+.ms-label{font-size:11px;color:var(--muted);margin-bottom:3px}
+.ms-val{font-size:22px;font-weight:600;color:var(--text);line-height:1}
+.ms-delta{font-size:11px;color:var(--accent);margin-top:3px}
+
+/* ── STATS ROW ── */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:20px 32px;background:var(--card-bg);border-bottom:1px solid var(--border);transition:background .2s,border-color .2s}
+.stat-card{background:var(--bg2);border-radius:12px;padding:14px 16px;border:1px solid var(--border);transition:background .2s,border-color .2s}
+.stat-label{font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:500}
+.stat-val{font-size:22px;font-weight:600;color:var(--text);line-height:1}
+.stat-delta{font-size:11px;color:var(--accent);margin-top:3px}
+
+/* ── SECTIONS ── */
+.section-pad{padding:24px 32px}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-title{font-size:16px;font-weight:600;color:var(--text)}
+.view-all{font-size:12px;color:var(--brand);border:none;background:transparent;display:flex;align-items:center;gap:4px;font-weight:500}
+.view-all:hover{text-decoration:underline}
+
+/* ── FILTERS ── */
+.filters-bar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.filters-bar input{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border-md);border-radius:8px;background:var(--input-bg);color:var(--text);font-size:13px;font-family:inherit;transition:background .2s,border-color .2s,color .2s}
+.filters-bar input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(74,158,232,.15)}
+.filters-bar select{padding:8px 10px;border:1px solid var(--border-md);border-radius:8px;background:var(--input-bg);color:var(--text);font-size:12px;font-family:inherit;transition:background .2s,border-color .2s,color .2s}
+
+/* ── PROGRAM CARDS ── */
+.programs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.prog-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow);transition:box-shadow .15s,border-color .15s,background .2s}
+.prog-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-md)}
+.prog-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.prog-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;color:#fff;flex-shrink:0}
+.prog-name{font-size:14px;font-weight:600;color:var(--text)}
+.prog-cat{font-size:11px;color:var(--muted)}
+.prog-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.pm-item{background:var(--bg2);border-radius:8px;padding:8px 10px;border:1px solid var(--border);transition:background .2s,border-color .2s}
+.pm-label{font-size:10px;color:var(--hint);margin-bottom:2px;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.pm-val{font-size:12px;font-weight:600;color:var(--text)}
+.prog-actions{display:flex;gap:6px;flex-wrap:wrap}
+.prog-btn{padding:6px 12px;font-size:12px;font-weight:500;border-radius:8px;border:1px solid var(--border-md);background:var(--bg2);color:var(--text);transition:all .12s}
+.prog-btn:hover{background:var(--bg3)}
+.prog-btn.apply{background:var(--brand);color:#fff;border-color:var(--brand)}
+.prog-btn.apply:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.prog-btn.saved{color:var(--saved-color);border-color:var(--saved-border);background:var(--saved-bg)}
+
+/* ── COMPANIES ── */
+.companies-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.company-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow);cursor:pointer;transition:box-shadow .15s,border-color .15s,background .2s}
+.company-card:hover{box-shadow:var(--shadow-md);border-color:var(--border-md)}
+.co-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.co-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:#fff;flex-shrink:0}
+.co-name{font-size:14px;font-weight:600;color:var(--text)}
+.co-industry{font-size:11px;color:var(--muted)}
+.co-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.co-stat{font-size:12px;color:var(--muted)}
+.co-stat span{color:var(--text);font-weight:600}
+.tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:10px;padding:3px 8px;border-radius:999px;background:var(--bg2);color:var(--muted);border:1px solid var(--border);font-weight:500}
+
+/* ── ANALYTICS ── */
+.analytics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.an-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow);transition:background .2s}
+.an-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:6px}
+.an-val{font-size:26px;font-weight:600;color:var(--text);line-height:1;margin-bottom:4px}
+.an-change{font-size:12px;font-weight:500}
+.up{color:var(--accent)}.down{color:#DC2626}
+.chart-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow);transition:background .2s}
+.chart-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:16px}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:12px}
+.bar-label{width:80px;color:var(--muted);font-weight:500;flex-shrink:0}
+.bar-track{flex:1;background:var(--bg2);border-radius:4px;height:8px;overflow:hidden;border:1px solid var(--border)}
+.bar-fill{height:100%;border-radius:4px;background:var(--brand);transition:width .6s ease}
+.bar-pct{width:34px;text-align:right;color:var(--text);font-weight:600}
+
+/* ── AI ── */
+.ai-box{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px;transition:background .2s}
+.ai-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ai-icon{width:32px;height:32px;border-radius:8px;background:var(--brand2);display:flex;align-items:center;justify-content:center}
+.ai-icon i{font-size:16px;color:#fff}
+.ai-title{font-size:14px;font-weight:600;color:var(--text)}
+.ai-input-row{display:flex;gap:8px}
+.ai-input-row input{flex:1;padding:9px 14px;border:1px solid var(--border-md);border-radius:8px;background:var(--input-bg);color:var(--text);font-size:13px;font-family:inherit;transition:background .2s,border-color .2s}
+.ai-input-row input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(74,158,232,.15)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.chip{font-size:11px;padding:5px 11px;border-radius:999px;border:1px solid var(--border-md);background:var(--bg2);color:var(--muted);cursor:pointer;transition:all .12s;font-weight:500}
+.chip:hover{border-color:var(--brand);color:var(--brand);background:var(--active-bg)}
+.ai-response{background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--green-text);line-height:1.65}
+.ai-response strong{color:var(--green-strong)}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.price-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;transition:box-shadow .15s,background .2s}
+.price-card:hover{box-shadow:var(--shadow-md)}
+.price-card.featured{border:2px solid var(--brand)}
+.feat-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--brand);color:#fff;font-size:10px;font-weight:600;padding:3px 12px;border-radius:999px;white-space:nowrap}
+.price-name{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.price-amount{font-size:32px;font-weight:700;color:var(--text);line-height:1}
+.price-period{font-size:11px;color:var(--hint);margin-bottom:10px}
+.price-desc{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.price-divider{border:none;border-top:1px solid var(--border);margin-bottom:14px}
+.price-feature{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);margin-bottom:7px}
+.price-feature i{font-size:13px;color:var(--accent);flex-shrink:0}
+.price-cta{width:100%;padding:9px;font-size:13px;font-weight:600;border-radius:8px;border:1px solid var(--border-md);background:var(--bg2);color:var(--text);margin-top:16px;transition:all .15s}
+.price-cta:hover{background:var(--bg3)}
+.price-card.featured .price-cta{background:var(--brand);color:#fff;border-color:var(--brand)}
+.price-card.featured .price-cta:hover{background:var(--brand-dark)}
+
+/* ── INTEGRATION BAR ── */
+.integration-bar{display:flex;align-items:center;gap:14px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:14px 18px;margin-bottom:20px}
+.int-icon{width:38px;height:38px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.int-icon i{font-size:18px;color:#fff}
+.int-body{flex:1}
+.int-title{font-size:13px;font-weight:600;color:var(--green-text);margin-bottom:2px}
+.int-desc{font-size:12px;color:var(--green-text);opacity:.85;line-height:1.4}
+
+/* ── MODALS ── */
+.modal-bg{display:none;position:fixed;inset:0;background:var(--overlay);z-index:200;align-items:flex-start;justify-content:center;padding:60px 20px;overflow-y:auto}
+.modal-bg.open{display:flex}
+.modal{background:var(--modal-bg);border-radius:16px;border:1px solid var(--border);padding:24px;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.2);position:relative;transition:background .2s,border-color .2s}
+.modal-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:8px;border:none;background:var(--bg2);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .12s}
+.modal-close:hover{background:var(--bg3);color:var(--text)}
+.modal h3{font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px}
+.modal-sub{font-size:12px;color:var(--muted);margin-bottom:18px}
+.modal-section-title{font-size:11px;font-weight:600;color:var(--hint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.detail-row:last-child{border:none}
+.dk{color:var(--muted)}.dv{font-weight:600;color:var(--text)}
+.about-text{font-size:13px;color:var(--muted);line-height:1.65;margin-top:8px}
+.modal-actions{display:flex;gap:8px;margin-top:18px}
+.modal-btn{flex:1;padding:9px;font-size:13px;font-weight:600;border-radius:8px;border:1px solid var(--border-md);background:var(--bg2);color:var(--text);transition:all .12s;display:flex;align-items:center;justify-content:center;gap:6px}
+.modal-btn:hover{background:var(--bg3)}
+.modal-btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.modal-btn.primary:hover{background:var(--brand-dark)}
+.plan-summary{background:var(--bg2);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center;border:1px solid var(--border)}
+.plan-price-big{font-size:36px;font-weight:700;color:var(--text);line-height:1}
+.form-group{margin-bottom:12px}
+.form-label{font-size:11px;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+.form-input{width:100%;padding:9px 12px;border:1px solid var(--border-md);border-radius:8px;background:var(--input-bg);color:var(--text);font-size:13px;font-family:inherit;transition:background .2s,border-color .2s}
+.form-input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(74,158,232,.15)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.secure-note{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--hint);justify-content:center;margin-top:12px}
+
+/* ── EMPTY STATE ── */
+.empty{padding:48px;text-align:center;color:var(--muted)}
+.empty i{font-size:40px;display:block;margin-bottom:10px;color:var(--hint)}
+.empty p{font-size:14px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:13px;font-weight:500;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;z-index:300;box-shadow:var(--shadow-md)}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{display:none;background:var(--nav-bg);border-top:1px solid var(--border);padding:6px 0 env(safe-area-inset-bottom,0);position:sticky;bottom:0;z-index:90;justify-content:space-around}
+.mn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;border:none;background:transparent;color:var(--hint);font-size:10px;font-weight:500;cursor:pointer;border-radius:8px;transition:color .12s}
+.mn-item.active{color:var(--brand)}
+.mn-item i{font-size:20px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){
+  .pricing-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:1100px){
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+  .analytics-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}.hero-visual{display:none}
+  .programs-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .sidebar{display:none}
+  .mobile-nav{display:flex}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .programs-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr 1fr}
+  .analytics-grid{grid-template-columns:1fr 1fr}
+  .section-pad{padding:16px}
+  .hero{padding:24px 16px}
+  .stats-row{padding:14px 16px}
+  .topnav{padding:0 14px}
+  .nav-links{display:none}
+  .hero h1{font-size:26px}
+}
+@media(max-width:480px){
+  .pricing-grid{grid-template-columns:1fr}
+  .analytics-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .nav-ctas .btn.outline{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="nav-brand" onclick="goPage('home')">
+    <div class="brand-logo">SG</div>
+    <div class="brand-text">
+      <div class="name">SG Affiliate List Leads</div>
+      <div class="tagline">Discover · Compare · Profit</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" id="nl-home" onclick="goPage('home')"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
+    <button class="nav-link" id="nl-leads" onclick="goPage('leads')"><i class="ti ti-target-arrow"></i> Leads</button>
+    <button class="nav-link" id="nl-companies" onclick="goPage('companies')"><i class="ti ti-building"></i> Companies</button>
+    <button class="nav-link" id="nl-ai" onclick="goPage('ai')"><i class="ti ti-robot"></i> AI Advisor</button>
+    <button class="nav-link" id="nl-analytics" onclick="goPage('analytics')"><i class="ti ti-chart-bar"></i> Analytics</button>
+    <button class="nav-link" id="nl-pricing" onclick="goPage('pricing')"><i class="ti ti-credit-card"></i> Pricing</button>
+  </div>
+  <div class="nav-ctas">
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="ti ti-moon" id="themeIcon"></i></button>
+    <button class="btn" onclick="goPage('favorites')"><i class="ti ti-heart"></i> Saved <span class="fav-count" id="favCount">0</span></button>
+    <button class="btn outline" onclick="openCheckout('Pro','€29')">Upgrade</button>
+    <button class="btn primary" onclick="openCheckout('Starter','Free')"><i class="ti ti-rocket"></i> Start Free</button>
+  </div>
+</nav>
+
+<div class="inner">
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Main</div>
+    <button class="sidebar-item active" id="si-home" onclick="sidebarNav('home')"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
+    <button class="sidebar-item" id="si-leads" onclick="sidebarNav('leads')"><i class="ti ti-target-arrow"></i> Leads</button>
+    <button class="sidebar-item" id="si-companies" onclick="sidebarNav('companies')"><i class="ti ti-building"></i> Companies</button>
+    <button class="sidebar-item" id="si-ai" onclick="sidebarNav('ai')"><i class="ti ti-robot"></i> AI Advisor</button>
+    <button class="sidebar-item" id="si-analytics" onclick="sidebarNav('analytics')"><i class="ti ti-chart-bar"></i> Analytics</button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Account</div>
+    <button class="sidebar-item" id="si-favorites" onclick="sidebarNav('favorites')"><i class="ti ti-heart"></i> Saved Leads</button>
+    <button class="sidebar-item" id="si-pricing" onclick="sidebarNav('pricing')"><i class="ti ti-credit-card"></i> Pricing</button>
+    <button class="sidebar-item" onclick="showToast('Settings coming soon')"><i class="ti ti-settings"></i> Settings</button>
+    <button class="sidebar-item" onclick="showToast('Help center opening...')"><i class="ti ti-help-circle"></i> Help</button>
+  </div>
+</aside>
+
+<main class="main">
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div>
+      <div class="hero-badge"><i class="ti ti-brand-github"></i> Part of the SG Ecosystem</div>
+      <h1>Find the Highest Paying<br><span>Affiliate Programs</span> Online</h1>
+      <p>Search, compare, and save top affiliate programs from 24,000+ verified listings. Convert leads into campaigns instantly with SG Affiliate Designer.</p>
+      <div class="hero-btns">
+        <button class="btn-lg primary" onclick="openCheckout('Starter','Free')"><i class="ti ti-rocket"></i> Start Free</button>
+        <button class="btn-lg" onclick="goPage('leads')"><i class="ti ti-shopping-bag"></i> View Marketplace</button>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><i class="ti ti-shield-check"></i> 10,000+ programs</div>
+        <div class="trust-item"><i class="ti ti-currency-dollar"></i> $1M+ monthly commissions</div>
+        <div class="trust-item"><i class="ti ti-robot"></i> AI-powered</div>
+        <div class="trust-item"><i class="ti ti-lock"></i> Verified networks</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="mini-stat"><div class="ms-label">Total programs</div><div class="ms-val">24,785</div><div class="ms-delta"><i class="ti ti-trending-up"></i> +12.5% this month</div></div>
+      <div class="mini-stat"><div class="ms-label">Avg. commission</div><div class="ms-val">35.75%</div><div class="ms-delta"><i class="ti ti-trending-up"></i> +8.3%</div></div>
+      <div class="mini-stat"><div class="ms-label">Est. monthly earnings</div><div class="ms-val">$24,590</div><div class="ms-delta"><i class="ti ti-trending-up"></i> +23.1%</div></div>
+    </div>
+  </section>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Total Programs</div><div class="stat-val">24,785</div><div class="stat-delta"><i class="ti ti-trending-up"></i> +12.5%</div></div>
+    <div class="stat-card"><div class="stat-label">Avg. Commission</div><div class="stat-val">35.75%</div><div class="stat-delta"><i class="ti ti-trending-up"></i> +8.3%</div></div>
+    <div class="stat-card"><div class="stat-label">New Programs</div><div class="stat-val">1,486</div><div class="stat-delta"><i class="ti ti-trending-up"></i> +15.7%</div></div>
+    <div class="stat-card"><div class="stat-label">Saved Leads</div><div class="stat-val" id="heroSaved">0</div><div class="stat-delta">Your favorites</div></div>
+    <div class="stat-card"><div class="stat-label">Est. Monthly Earnings</div><div class="stat-val">$24,590</div><div class="stat-delta"><i class="ti ti-trending-up"></i> +23.1%</div></div>
+  </div>
+  <div class="section-pad">
+    <div class="section-header">
+      <span class="section-title">Top affiliate programs</span>
+      <button class="view-all" onclick="goPage('leads')">View all <i class="ti ti-arrow-right"></i></button>
+    </div>
+    <div id="home-grid" class="programs-grid"></div>
+    <div class="integration-bar" style="margin-top:24px">
+      <div class="int-icon"><i class="ti ti-plug"></i></div>
+      <div class="int-body">
+        <div class="int-title">SG Affiliate Designer Integration</div>
+        <div class="int-desc">Select any lead and instantly generate landing pages, ads, email copy, and campaign assets.</div>
+      </div>
+      <button class="btn primary" onclick="showToast('Opening SG Affiliate Designer...')">Connect <i class="ti ti-external-link"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- LEADS PAGE -->
+<div id="page-leads" class="page">
+  <div class="section-pad">
+    <div class="section-header">
+      <span class="section-title">Affiliate lead explorer</span>
+      <span id="results-count" style="font-size:12px;color:var(--hint)"></span>
+    </div>
+    <div class="filters-bar">
+      <input type="text" id="searchInput" placeholder="Search programs, categories, companies..." oninput="filterPrograms()">
+      <select id="catFilter" onchange="filterPrograms()">
+        <option value="">All categories</option>
+        <option>SEO / Marketing</option><option>CRM / SaaS</option>
+        <option>E-commerce</option><option>Cybersecurity</option>
+      </select>
+      <select id="commFilter" onchange="filterPrograms()">
+        <option value="">Commission type</option>
+        <option>Recurring</option><option>Fixed</option><option>Percentage</option>
+      </select>
+      <select id="cookieFilter" onchange="filterPrograms()">
+        <option value="">Cookie duration</option>
+        <option>30 Days</option><option>90+ Days</option><option>120+ Days</option><option>180 Days</option>
+      </select>
+      <button class="btn primary" onclick="filterPrograms()"><i class="ti ti-search"></i> Search</button>
+    </div>
+    <div id="leads-grid" class="programs-grid"></div>
+  </div>
+</div>
+
+<!-- COMPANIES PAGE -->
+<div id="page-companies" class="page">
+  <div class="section-pad">
+    <div class="section-header">
+      <span class="section-title">Company directory</span>
+      <span style="font-size:12px;color:var(--hint)">8 companies</span>
+    </div>
+    <div id="companies-grid" class="companies-grid"></div>
+  </div>
+</div>
+
+<!-- AI ADVISOR PAGE -->
+<div id="page-ai" class="page">
+  <div class="section-pad">
+    <div class="section-header"><span class="section-title">AI Advisor</span></div>
+    <div class="ai-box">
+      <div class="ai-header">
+        <div class="ai-icon"><i class="ti ti-robot"></i></div>
+        <span class="ai-title">Ask the AI Advisor anything</span>
+      </div>
+      <div class="ai-input-row">
+        <input type="text" id="aiInput" placeholder="e.g. Best recurring commission programs for SaaS audiences..." onkeydown="if(event.key==='Enter')sendAI()">
+        <button class="btn primary" onclick="sendAI()">Ask <i class="ti ti-send"></i></button>
+      </div>
+      <div class="chips">
+        <button class="chip" onclick="setAI('Best recurring programs for beginners')">Best recurring for beginners</button>
+        <button class="chip" onclick="setAI('High commission SaaS programs')">High commission SaaS</button>
+        <button class="chip" onclick="setAI('Programs with 90+ day cookies')">90+ day cookies</button>
+        <button class="chip" onclick="setAI('Top e-commerce affiliate programs')">Top e-commerce</button>
+        <button class="chip" onclick="setAI('Compare Semrush vs HubSpot')">Semrush vs HubSpot</button>
+      </div>
+    </div>
+    <div id="ai-response-area"></div>
+    <div class="section-header"><span class="section-title">AI-recommended programs</span></div>
+    <div id="ai-grid" class="programs-grid"></div>
+  </div>
+</div>
+
+<!-- ANALYTICS PAGE -->
+<div id="page-analytics" class="page">
+  <div class="section-pad">
+    <div class="section-header"><span class="section-title">Analytics overview</span></div>
+    <div class="analytics-grid">
+      <div class="an-card"><div class="an-label">Total clicks</div><div class="an-val">48,291</div><div class="an-change up"><i class="ti ti-trending-up"></i> +18.4%</div></div>
+      <div class="an-card"><div class="an-label">Conversions</div><div class="an-val">1,847</div><div class="an-change up"><i class="ti ti-trending-up"></i> +22.1%</div></div>
+      <div class="an-card"><div class="an-label">Conversion rate</div><div class="an-val">3.82%</div><div class="an-change up"><i class="ti ti-trending-up"></i> +0.4 pts</div></div>
+      <div class="an-card"><div class="an-label">Est. revenue</div><div class="an-val">$24,590</div><div class="an-change up"><i class="ti ti-trending-up"></i> +23.1%</div></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Top industries by share</div>
+      <div class="bar-row"><span class="bar-label">SaaS</span><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><span class="bar-pct">28%</span></div>
+      <div class="bar-row"><span class="bar-label">Finance</span><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><span class="bar-pct">18%</span></div>
+      <div class="bar-row"><span class="bar-label">E-commerce</span><div class="bar-track"><div class="bar-fill" style="width:44%"></div></div><span class="bar-pct">16%</span></div>
+      <div class="bar-row"><span class="bar-label">Education</span><div class="bar-track"><div class="bar-fill" style="width:39%"></div></div><span class="bar-pct">14%</span></div>
+      <div class="bar-row"><span class="bar-label">AI Tools</span><div class="bar-track"><div class="bar-fill" style="width:28%"></div></div><span class="bar-pct">10%</span></div>
+      <div class="bar-row"><span class="bar-label">Other</span><div class="bar-track"><div class="bar-fill" style="width:39%"></div></div><span class="bar-pct">14%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FAVORITES PAGE -->
+<div id="page-favorites" class="page">
+  <div class="section-pad">
+    <div class="section-header">
+      <span class="section-title">Saved leads</span>
+      <button class="view-all" onclick="clearFavorites()"><i class="ti ti-trash"></i> Clear all</button>
+    </div>
+    <div id="fav-grid" class="programs-grid"></div>
+    <div id="fav-empty" class="empty" style="display:none"><i class="ti ti-heart"></i><p>No saved leads yet.<br>Click <strong>Save</strong> on any program to add it here.</p></div>
+  </div>
+</div>
+
+<!-- PRICING PAGE -->
+<div id="page-pricing" class="page">
+  <div class="section-pad">
+    <div class="section-header"><span class="section-title">Simple, transparent pricing</span></div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:28px">Start free, upgrade as you grow. All plans include access to the affiliate directory.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Starter</div><div class="price-amount">€9</div>
+        <div class="price-period">per month</div>
+        <div class="price-desc">Perfect for individuals getting started.</div>
+        <hr class="price-divider">
+        <div class="price-feature"><i class="ti ti-check"></i> 100 searches/month</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Basic filters</div>
+        <div class="price-feature"><i class="ti ti-check"></i> 10 saved leads</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Email support</div>
+        <button class="price-cta" onclick="openCheckout('Starter','€9')">Get started</button>
+      </div>
+      <div class="price-card featured">
+        <div class="feat-badge">Most popular</div>
+        <div class="price-name">Pro</div><div class="price-amount">€29</div>
+        <div class="price-period">per month</div>
+        <div class="price-desc">For serious affiliate marketers.</div>
+        <hr class="price-divider">
+        <div class="price-feature"><i class="ti ti-check"></i> Unlimited searches</div>
+        <div class="price-feature"><i class="ti ti-check"></i> AI recommendations</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Unlimited saved leads</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Advanced analytics</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Priority support</div>
+        <button class="price-cta" onclick="openCheckout('Pro','€29')">Get started</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Agency</div><div class="price-amount">€99</div>
+        <div class="price-period">per month</div>
+        <div class="price-desc">For teams and agencies.</div>
+        <hr class="price-divider">
+        <div class="price-feature"><i class="ti ti-check"></i> Everything in Pro</div>
+        <div class="price-feature"><i class="ti ti-check"></i> 5 team seats</div>
+        <div class="price-feature"><i class="ti ti-check"></i> White-label reports</div>
+        <div class="price-feature"><i class="ti ti-check"></i> API access</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Dedicated manager</div>
+        <button class="price-cta" onclick="openCheckout('Agency','€99')">Get started</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Enterprise</div>
+        <div class="price-amount" style="font-size:24px;padding-top:6px">Custom</div>
+        <div class="price-period">contact us</div>
+        <div class="price-desc">For large organizations.</div>
+        <hr class="price-divider">
+        <div class="price-feature"><i class="ti ti-check"></i> Everything in Agency</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Unlimited seats</div>
+        <div class="price-feature"><i class="ti ti-check"></i> Custom integrations</div>
+        <div class="price-feature"><i class="ti ti-check"></i> SLA guarantee</div>
+        <div class="price-feature"><i class="ti ti-check"></i> On-site training</div>
+        <button class="price-cta" onclick="showToast('Contacting sales team...')">Contact sales</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav">
+  <button class="mn-item active" id="mn-home" onclick="goPage('home')"><i class="ti ti-home"></i>Home</button>
+  <button class="mn-item" id="mn-leads" onclick="goPage('leads')"><i class="ti ti-target-arrow"></i>Leads</button>
+  <button class="mn-item" id="mn-ai" onclick="goPage('ai')"><i class="ti ti-robot"></i>AI</button>
+  <button class="mn-item" id="mn-analytics" onclick="goPage('analytics')"><i class="ti ti-chart-bar"></i>Stats</button>
+  <button class="mn-item" id="mn-favorites" onclick="goPage('favorites')"><i class="ti ti-heart"></i>Saved</button>
+</nav>
+
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-bg" id="detailModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('detailModal')" aria-label="Close"><i class="ti ti-x"></i></button>
+    <h3 id="m-name"></h3>
+    <div class="modal-sub" id="m-cat"></div>
+    <div class="modal-section-title">Program details</div>
+    <div id="m-details"></div>
+    <div class="modal-section-title" style="margin-top:14px">About</div>
+    <p class="about-text" id="m-about"></p>
+    <div class="modal-actions">
+      <button class="modal-btn" id="m-fav-btn" onclick="toggleFavFromModal()"><i class="ti ti-heart"></i> Save lead</button>
+      <button class="modal-btn primary" onclick="applyFromModal()"><i class="ti ti-external-link"></i> Apply now</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-bg" id="checkoutModal">
+  <div class="modal" style="max-width:400px">
+    <button class="modal-close" onclick="closeModal('checkoutModal')" aria-label="Close"><i class="ti ti-x"></i></button>
+    <h3 id="co-title">Checkout</h3>
+    <div class="modal-sub">Secure checkout · Cancel anytime</div>
+    <div class="plan-summary">
+      <div style="font-size:11px;color:var(--hint);margin-bottom:4px;text-transform:uppercase;font-weight:600" id="co-plan"></div>
+      <div class="plan-price-big" id="co-price"></div>
+      <div style="font-size:11px;color:var(--hint);margin-top:2px">/month, billed monthly</div>
+    </div>
+    <div class="form-group"><label class="form-label">Full name</label><input class="form-input" type="text" placeholder="John Carter"></div>
+    <div class="form-group"><label class="form-label">Email address</label><input class="form-input" type="email" placeholder="john@example.com"></div>
+    <div class="form-group"><label class="form-label">Card number</label><input class="form-input" type="text" placeholder="1234 5678 9012 3456" maxlength="19"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Expiry</label><input class="form-input" type="text" placeholder="MM/YY" maxlength="5"></div>
+      <div class="form-group"><label class="form-label">CVC</label><input class="form-input" type="text" placeholder="123" maxlength="3"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeModal('checkoutModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="completePurchase()"><i class="ti ti-lock"></i> Complete purchase</button>
+    </div>
+    <div class="secure-note"><i class="ti ti-shield-check"></i> Secured by Stripe · 256-bit SSL</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PROGRAMS=[
+  {id:1,name:"Semrush",cat:"SEO / Marketing",commission:"Up to 40%",payout:"$200 avg",cookie:"120 days",rating:4.8,color:"#185FA5",commType:"Percentage",cookieDays:120,url:"https://www.semrush.com/partner/",about:"Semrush is an all-in-one digital marketing toolkit. Their affiliate program pays up to 40% recurring commission with a generous 120-day cookie window — one of the most reliable high-paying marketing affiliate programs available."},
+  {id:2,name:"HubSpot",cat:"CRM / SaaS",commission:"30% recurring",payout:"Monthly",cookie:"180 days",rating:4.9,color:"#993C1D",commType:"Recurring",cookieDays:180,url:"https://www.hubspot.com/affiliates",about:"HubSpot's affiliate program offers 30% recurring commissions for up to one year, with an industry-leading 180-day cookie. Top-tier choice for audiences interested in sales, marketing, and CRM software."},
+  {id:3,name:"Shopify",cat:"E-commerce",commission:"Up to $150",payout:"Fixed",cookie:"30 days",rating:4.7,color:"#3B6D11",commType:"Fixed",cookieDays:30,url:"https://www.shopify.com/affiliates",about:"Earn up to $150 per qualified referral with Shopify's affiliate program. With millions of merchants and strong brand recognition, conversions are high for audiences interested in starting an online store."},
+  {id:4,name:"NordVPN",cat:"Cybersecurity",commission:"40%+",payout:"Recurring",cookie:"30 days",rating:4.6,color:"#534AB7",commType:"Recurring",cookieDays:30,url:"https://affiliates.nordvpn.com",about:"NordVPN offers some of the most competitive commissions in cybersecurity — up to 100% on the first month and 30% recurring thereafter. Strong brand that converts well in privacy-conscious audiences."},
+  {id:5,name:"Atlassian",cat:"CRM / SaaS",commission:"Up to 50%",payout:"Monthly",cookie:"90 days",rating:4.7,color:"#185FA5",commType:"Percentage",cookieDays:90,url:"https://www.atlassian.com/partners",about:"Atlassian's partner program covers Jira, Confluence, Trello and more. High commissions for SaaS products used by millions of development and project management teams globally."},
+  {id:6,name:"GetResponse",cat:"SEO / Marketing",commission:"33% recurring",payout:"Monthly",cookie:"120 days",rating:4.5,color:"#993356",commType:"Recurring",cookieDays:120,url:"https://www.getresponse.com/affiliate",about:"GetResponse offers a bounty program ($100 per sale) or a recurring 33% monthly commission. A top pick for email marketing, automation, and online business niches."},
+  {id:7,name:"Namecheap",cat:"E-commerce",commission:"35%",payout:"Fixed",cookie:"30 days",rating:4.4,color:"#0F6E56",commType:"Percentage",cookieDays:30,url:"https://www.namecheap.com/affiliates/",about:"Namecheap's affiliate program covers domains, hosting, and SSL certificates with up to 35% commission and solid conversion rates due to competitive pricing in the market."},
+  {id:8,name:"ClickFunnels",cat:"SEO / Marketing",commission:"40% recurring",payout:"Monthly",cookie:"30 days",rating:4.5,color:"#854F0B",commType:"Recurring",cookieDays:30,url:"https://www.clickfunnels.com/affiliates",about:"ClickFunnels pays 40% monthly recurring commissions on all plans. Extremely popular in online marketing and business education niches with passionate communities that convert well."},
+];
+const COMPANIES=[
+  {name:"Semrush",industry:"SEO Tools",programs:12,avgComm:"40%",color:"#185FA5",tags:["Marketing","SEO","Analytics"]},
+  {name:"HubSpot",industry:"CRM / SaaS",programs:5,avgComm:"30%",color:"#993C1D",tags:["CRM","Sales","Marketing"]},
+  {name:"Shopify",industry:"E-commerce",programs:3,avgComm:"$150",color:"#3B6D11",tags:["E-commerce","Dropshipping"]},
+  {name:"NordVPN",industry:"Cybersecurity",programs:4,avgComm:"40%+",color:"#534AB7",tags:["VPN","Privacy","Security"]},
+  {name:"Atlassian",industry:"SaaS",programs:8,avgComm:"50%",color:"#185FA5",tags:["SaaS","Dev Tools","Teams"]},
+  {name:"GetResponse",industry:"Email Marketing",programs:2,avgComm:"33%",color:"#993356",tags:["Email","Automation","Lists"]},
+  {name:"Namecheap",industry:"Domains & Hosting",programs:6,avgComm:"35%",color:"#0F6E56",tags:["Domains","Hosting","SSL"]},
+  {name:"ClickFunnels",industry:"Marketing Software",programs:4,avgComm:"40%",color:"#854F0B",tags:["Funnels","Sales","Courses"]},
+];
+
+let favorites=new Set();
+let currentModalProg=null;
+let currentPage='home';
+let isDark=false;
+
+/* ── THEME ── */
+function toggleTheme(){
+  isDark=!isDark;
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+  document.getElementById('themeIcon').className=isDark?'ti ti-sun':'ti ti-moon';
+  localStorage.setItem('sg-theme',isDark?'dark':'light');
+}
+(function(){
+  const saved=localStorage.getItem('sg-theme');
+  const prefersDark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  if(saved==='dark'||(saved===null&&prefersDark)){
+    isDark=true;
+    document.documentElement.setAttribute('data-theme','dark');
+    document.addEventListener('DOMContentLoaded',()=>{
+      const icon=document.getElementById('themeIcon');
+      if(icon) icon.className='ti ti-sun';
+    });
+  }
+})();
+
+/* ── CARD BUILDER ── */
+function makeProgCard(p,ctx){
+  const fav=favorites.has(p.id);
+  return`<div class="prog-card">
+    <div class="prog-top">
+      <div class="prog-icon" style="background:${p.color}">${p.name[0]}</div>
+      <div><div class="prog-name">${p.name}</div><div class="prog-cat">${p.cat}</div></div>
+    </div>
+    <div class="prog-meta">
+      <div class="pm-item"><div class="pm-label">Commission</div><div class="pm-val">${p.commission}</div></div>
+      <div class="pm-item"><div class="pm-label">Payout</div><div class="pm-val">${p.payout}</div></div>
+      <div class="pm-item"><div class="pm-label">Cookie</div><div class="pm-val">${p.cookie}</div></div>
+      <div class="pm-item"><div class="pm-label">Rating</div><div class="pm-val"><i class="ti ti-star-filled" style="color:#D97706;font-size:12px"></i> ${p.rating}</div></div>
+    </div>
+    <div class="prog-actions">
+      <button class="prog-btn${fav?' saved':''}" id="fav-${p.id}-${ctx}" onclick="toggleFav(${p.id})">${fav?'<i class="ti ti-heart-off"></i> Saved':'<i class="ti ti-heart"></i> Save'}</button>
+      <button class="prog-btn" onclick="openDetail(${p.id})"><i class="ti ti-info-circle"></i> Details</button>
+      <button class="prog-btn apply" onclick="applyNow(${p.id})"><i class="ti ti-external-link"></i> Apply now</button>
+    </div>
+  </div>`;
+}
+
+/* ── NAVIGATION ── */
+function goPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('page-'+page);
+  if(el) el.classList.add('active');
+  currentPage=page;
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const nl=document.getElementById('nl-'+page);
+  if(nl) nl.classList.add('active');
+  document.querySelectorAll('.sidebar-item').forEach(s=>s.classList.remove('active'));
+  const si=document.getElementById('si-'+page);
+  if(si) si.classList.add('active');
+  document.querySelectorAll('.mn-item').forEach(m=>m.classList.remove('active'));
+  const mn=document.getElementById('mn-'+page);
+  if(mn) mn.classList.add('active');
+  if(page==='leads') renderLeads(PROGRAMS);
+  if(page==='companies') renderCompanies();
+  if(page==='favorites') renderFavorites();
+  if(page==='ai') renderAIGrid();
+  window.scrollTo(0,0);
+}
+function sidebarNav(p){goPage(p);}
+
+/* ── RENDER ── */
+function renderGrid(id,list){
+  const g=document.getElementById(id);
+  if(!list||!list.length){g.innerHTML='<div class="empty"><i class="ti ti-search"></i><p>No programs match your filters.</p></div>';return;}
+  g.innerHTML=list.map(p=>makeProgCard(p,id)).join('');
+}
+function renderLeads(list){
+  const el=document.getElementById('results-count');
+  if(el) el.textContent=list.length+' programs found';
+  renderGrid('leads-grid',list);
+}
+function renderCompanies(){
+  document.getElementById('companies-grid').innerHTML=COMPANIES.map(c=>`
+    <div class="company-card" onclick="showToast('Opening ${c.name} profile...')">
+      <div class="co-top"><div class="co-icon" style="background:${c.color}">${c.name[0]}</div><div><div class="co-name">${c.name}</div><div class="co-industry">${c.industry}</div></div></div>
+      <div class="co-stats"><div class="co-stat">Programs: <span>${c.programs}</span></div><div class="co-stat">Avg. commission: <span>${c.avgComm}</span></div></div>
+      <div class="tags">${c.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    </div>`).join('');
+}
+function renderAIGrid(){renderGrid('ai-grid',PROGRAMS.filter(p=>p.commType==='Recurring').slice(0,4));}
+function renderFavorites(){
+  const list=PROGRAMS.filter(p=>favorites.has(p.id));
+  const empty=document.getElementById('fav-empty');
+  if(!list.length){document.getElementById('fav-grid').innerHTML='';empty.style.display='block';}
+  else{empty.style.display='none';renderGrid('fav-grid',list);}
+}
+
+/* ── FILTERS ── */
+function filterPrograms(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const cat=document.getElementById('catFilter').value;
+  const comm=document.getElementById('commFilter').value;
+  const cookie=document.getElementById('cookieFilter').value;
+  let f=PROGRAMS.filter(p=>{
+    if(q&&!p.name.toLowerCase().includes(q)&&!p.cat.toLowerCase().includes(q)&&!p.commission.toLowerCase().includes(q)) return false;
+    if(cat&&p.cat!==cat) return false;
+    if(comm&&!p.commType.includes(comm)) return false;
+    if(cookie==='30 Days'&&p.cookieDays>30) return false;
+    if(cookie==='90+ Days'&&p.cookieDays<90) return false;
+    if(cookie==='120+ Days'&&p.cookieDays<120) return false;
+    if(cookie==='180 Days'&&p.cookieDays<180) return false;
+    return true;
+  });
+  renderLeads(f);
+}
+
+/* ── FAVORITES ── */
+function toggleFav(id){
+  if(favorites.has(id)){favorites.delete(id);showToast('Removed from saved leads');}
+  else{favorites.add(id);showToast('Lead saved!');}
+  updateCounts();
+  document.querySelectorAll('[id^="fav-'+id+'-"]').forEach(btn=>{
+    const fav=favorites.has(id);
+    btn.className='prog-btn'+(fav?' saved':'');
+    btn.innerHTML=fav?'<i class="ti ti-heart-off"></i> Saved':'<i class="ti ti-heart"></i> Save';
+  });
+  if(currentPage==='favorites') renderFavorites();
+  if(currentModalProg&&currentModalProg.id===id){
+    const b=document.getElementById('m-fav-btn');
+    if(b) b.innerHTML=favorites.has(id)?'<i class="ti ti-heart-off"></i> Remove lead':'<i class="ti ti-heart"></i> Save lead';
+  }
+}
+function updateCounts(){
+  const c=favorites.size;
+  document.getElementById('favCount').textContent=c;
+  document.getElementById('heroSaved').textContent=c;
+}
+function clearFavorites(){favorites.clear();updateCounts();renderFavorites();showToast('All saved leads cleared');}
+
+/* ── MODALS ── */
+function openDetail(id){
+  const p=PROGRAMS.find(x=>x.id===id);
+  if(!p) return;
+  currentModalProg=p;
+  document.getElementById('m-name').textContent=p.name;
+  document.getElementById('m-cat').textContent=p.cat;
+  document.getElementById('m-about').textContent=p.about;
+  document.getElementById('m-details').innerHTML=`
+    <div class="detail-row"><span class="dk">Commission</span><span class="dv">${p.commission}</span></div>
+    <div class="detail-row"><span class="dk">Payout schedule</span><span class="dv">${p.payout}</span></div>
+    <div class="detail-row"><span class="dk">Cookie duration</span><span class="dv">${p.cookie}</span></div>
+    <div class="detail-row"><span class="dk">Commission type</span><span class="dv">${p.commType}</span></div>
+    <div class="detail-row"><span class="dk">Rating</span><span class="dv">★ ${p.rating} / 5.0</span></div>
+    <div class="detail-row"><span class="dk">Affiliate URL</span><a href="${p.url}" target="_blank" rel="noopener noreferrer" style="font-size:12px;word-break:break-all">${p.url.replace('https://','')}</a></div>`;
+  const b=document.getElementById('m-fav-btn');
+  b.innerHTML=favorites.has(p.id)?'<i class="ti ti-heart-off"></i> Remove lead':'<i class="ti ti-heart"></i> Save lead';
+  document.getElementById('detailModal').classList.add('open');
+}
+function toggleFavFromModal(){if(currentModalProg) toggleFav(currentModalProg.id);}
+function applyFromModal(){
+  if(currentModalProg){
+    window.open(currentModalProg.url,'_blank','noopener,noreferrer');
+    showToast('Opening '+currentModalProg.name+' affiliate page...');
+    closeModal('detailModal');
+  }
+}
+function applyNow(id){
+  const p=PROGRAMS.find(x=>x.id===id);
+  if(p){window.open(p.url,'_blank','noopener,noreferrer');showToast('Opening '+p.name+'...');}
+}
+function openCheckout(plan,price){
+  document.getElementById('co-title').textContent='Subscribe to '+plan;
+  document.getElementById('co-plan').textContent=plan+' plan';
+  document.getElementById('co-price').textContent=price;
+  document.getElementById('checkoutModal').classList.add('open');
+}
+function completePurchase(){
+  closeModal('checkoutModal');
+  showToast('Welcome aboard! Account created.');
+  setTimeout(()=>goPage('leads'),800);
+}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-bg').forEach(bg=>{
+  bg.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.querySelectorAll('.modal-bg.open').forEach(m=>m.classList.remove('open'));
+});
+
+/* ── AI ADVISOR ── */
+function sendAI(){
+  const q=document.getElementById('aiInput').value.trim();
+  if(!q) return;
+  document.getElementById('ai-response-area').innerHTML=`<div class="ai-response"><strong><i class="ti ti-robot"></i> AI Advisor:</strong> Based on "<em>${q}</em>", I recommend focusing on recurring commission programs with long cookie windows. HubSpot (30% recurring, 180-day cookie) and Semrush (40%, 120-day) are excellent starting points. GetResponse is also worth considering for email marketing audiences.</div>`;
+  document.getElementById('aiInput').value='';
+}
+function setAI(t){document.getElementById('aiInput').value=t;sendAI();}
+
+/* ── TOAST ── */
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+/* ── INIT ── */
+renderGrid('home-grid',PROGRAMS.slice(0,4));
+renderLeads(PROGRAMS);
+renderAIGrid();
+</script>
+</body>
+</html>
